@@ -1,0 +1,23 @@
+<template name="transHistory">
+
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Transactions</th>
+        <th>Amount</th>
+    </tr>
+    {{#each transactions}}
+    <tr>
+        <td>{{date}}</td>
+        <td>{{title}}</td>
+        {{#if type}}
+        <td >{{amount}}</td>   
+        {{else}}
+        <td style="color:red;">{{amount}}</td>
+        {{/if}}
+    </tr>
+    {{else}}
+    loading/empty
+    {{/each}}
+</table>
+</template>

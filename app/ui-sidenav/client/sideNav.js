@@ -23,7 +23,9 @@ Template.sideNav.helpers({
 	},
 
 	roomType() {
-		return roomTypes.getTypes().map((roomType) => ({
+		const a = roomTypes.getTypes().filter(x=>{
+			return x._label == "Direct_Messages" || x._label == 'Favorites'
+		}).map((roomType) => ({
 			template: roomType.customTemplate || 'roomList',
 			data: {
 				header: roomType.header,
@@ -32,6 +34,8 @@ Template.sideNav.helpers({
 				label: roomType.label,
 			},
 		}));
+		console.log(a)
+		return a
 	},
 
 	loggedInUser() {

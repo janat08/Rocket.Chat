@@ -106,6 +106,15 @@ Template.sidebarItem.onCreated(function() {
 });
 
 Template.sidebarItem.events({
+	'click .sidebar-item__link'() {
+		var dms = Session.get('DMS') || []
+		dms.push(this.rid)
+		const filt = dms.filter(x=>this.rid==x)
+		if (filt.length > 1){
+			dms = dms.filter(x=>this.rid!=x)
+		}
+		Session.set('DMS', dms)
+	},
 	'click [data-id], click .sidebar-item__link'() {
 		return menu.close();
 	},

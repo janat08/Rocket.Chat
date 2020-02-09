@@ -2,8 +2,14 @@ import './body.html';
 
 
 Template.App_body.helpers({
-    userId () {
-        return Meteor.userId()
+    chats () {
+        console.log(Session.get('DMS'))
+        return Session.get('DMS').map(x=>({_id: x}))
+    },
+    roomData() {
+        return {
+            _id: "8yWLMxQNXLkrqkT638yWLMxQNXLkrqkT63"
+        }
     }
 })
 

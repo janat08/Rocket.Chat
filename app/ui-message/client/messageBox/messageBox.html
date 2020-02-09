@@ -1,5 +1,5 @@
 <template name="messageBox">
-	<div class="rc-message-box rc-new {{#if isEmbedded}}rc-message-box--embedded{{/if}}">
+	<div class="rc-message-box rc-new rc-message-box--embedded">
 		{{#unless isAnonymousOrMustJoinWithCode}}
 			{{#unless tmid}}
 				{{> messageBoxTyping rid=rid}}

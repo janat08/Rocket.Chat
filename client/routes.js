@@ -27,86 +27,81 @@ import '/imports/ui/pages/browseProjects/browseProjects.js'
 import '/imports/ui/pages/project/project.js'
 import '/imports/ui/pages/profile/profile.js'
 
-// const getRoomById = mem((rid) => call('getRoomById', rid));
+const getRoomById = mem((rid) => call('getRoomById', rid));
 
-// FlowRouter.goToRoomById = async (rid) => {
-// 	if (!rid) {
-// 		return;
-// 	}
-// 	const subscription = ChatSubscription.findOne({ rid });
-// 	if (subscription) {
-// 		return roomTypes.openRouteLink(subscription.t, subscription, FlowRouter.current().queryParams);
-// 	}
+FlowRouter.goToRoomById = async (rid) => {
+	if (!rid) {
+		return;
+	}
+	const subscription = ChatSubscription.findOne({ rid });
+	if (subscription) {
+		return roomTypes.openRouteLink(subscription.t, subscription, FlowRouter.current().queryParams);
+	}
 
-// 	const room = await getRoomById(rid);
-// 	return roomTypes.openRouteLink(room.t, room, FlowRouter.current().queryParams);
-// };
+	const room = await getRoomById(rid);
+	return roomTypes.openRouteLink(room.t, room, FlowRouter.current().queryParams);
+};
 
 
-// BlazeLayout.setRoot('body');
+BlazeLayout.setRoot('body');
 
-// const createTemplateForComponent = async (
-// 	component,
-// 	props = {},
-// 	// eslint-disable-next-line new-cap
-// 	renderContainerView = () => HTML.DIV(),
-// ) => {
-// 	const name = component.displayName || component.name;
+const createTemplateForComponent = async (
+	component,
+	props = {},
+	// eslint-disable-next-line new-cap
+	renderContainerView = () => HTML.DIV(),
+) => {
+	const name = component.displayName || component.name;
 
-// 	if (!name) {
-// 		throw new Error('the component must have a name');
-// 	}
+	if (!name) {
+		throw new Error('the component must have a name');
+	}
 
-// 	if (Template[name]) {
-// 		Template[name].props.set(props);
-// 		return name;
-// 	}
+	if (Template[name]) {
+		Template[name].props.set(props);
+		return name;
+	}
 
-// 	Template[name] = new Blaze.Template(name, renderContainerView);
+	Template[name] = new Blaze.Template(name, renderContainerView);
 
-// 	Template[name].props = new ReactiveVar(props);
+	Template[name].props = new ReactiveVar(props);
 
-// 	const React = await import('react');
-// 	const ReactDOM = await import('react-dom');
-// 	const { MeteorProvider } = await import('./providers/MeteorProvider');
+	const React = await import('react');
+	const ReactDOM = await import('react-dom');
+	const { MeteorProvider } = await import('./providers/MeteorProvider');
 
-// 	function TemplateComponent() {
-// 		return React.createElement(component, Template[name].props.get());
-// 	}
+	function TemplateComponent() {
+		return React.createElement(component, Template[name].props.get());
+	}
 
-// 	Template[name].onRendered(() => {
-// 		Template.instance().autorun((computation) => {
-// 			if (computation.firstRun) {
-// 				Template.instance().container = Template.instance().firstNode;
-// 			}
+	Template[name].onRendered(() => {
+		Template.instance().autorun((computation) => {
+			if (computation.firstRun) {
+				Template.instance().container = Template.instance().firstNode;
+			}
 
-// 			ReactDOM.render(
-// 				React.createElement(MeteorProvider, {
-// 					children: React.createElement(TemplateComponent),
-// 				}), Template.instance().firstNode);
-// 		});
-// 	});
+			ReactDOM.render(
+				React.createElement(MeteorProvider, {
+					children: React.createElement(TemplateComponent),
+				}), Template.instance().firstNode);
+		});
+	});
 
-// 	Template[name].onDestroyed(() => {
-// 		if (Template.instance().container) {
-// 			ReactDOM.unmountComponentAtNode(Template.instance().container);
-// 		}
-// 	});
+	Template[name].onDestroyed(() => {
+		if (Template.instance().container) {
+			ReactDOM.unmountComponentAtNode(Template.instance().container);
+		}
+	});
 
-// 	return name;
-// };
+	return name;
+};
 
 
 
 window.SubsCache = new SubsCache(5, 10);
 
 //Set up all routes in the app
-FlowRouter.route('/', {
-  name: 'App.home',
-  action() {
-    BlazeLayout.render('App_body', { main: 'info' });
-  },
-});
+
 
 FlowRouter.route('/milestones/:projectId', {
   name: 'App.home',
@@ -159,31 +154,36 @@ FlowRouter.route('/profile/:id', {
 
 
 
-
-
 // FlowRouter.route('/', {
-// 	name: 'index',
-// 	action() {
-// 		BlazeLayout.render('main', { center: 'loading' });
-// 		if (!Meteor.userId()) {
-// 			return FlowRouter.go('home');
-// 		}
-
-// 		Tracker.autorun(function(c) {
-// 			if (FlowRouter.subsReady() === true) {
-// 				Meteor.defer(function() {
-// 					if (Meteor.user() && Meteor.user().defaultRoom) {
-// 						const room = Meteor.user().defaultRoom.split('/');
-// 						FlowRouter.go(room[0], { name: room[1] }, FlowRouter.current().queryParams);
-// 					} else {
-// 						FlowRouter.go('home');
-// 					}
-// 				});
-// 				c.stop();
-// 			}
-// 		});
-// 	},
+//   name: 'App.home',
+//   action() {
+//     BlazeLayout.render('App_body', { main: 'info' });
+//   },
 // });
+
+FlowRouter.route('/', {
+	name: 'index',
+	action() {
+		BlazeLayout.render('main', { center: 'loading' });
+		if (!Meteor.userId()) {
+			return FlowRouter.go('home');
+		}
+
+		Tracker.autorun(function(c) {
+			if (FlowRouter.subsReady() === true) {
+				Meteor.defer(function() {
+					if (Meteor.user() && Meteor.user().defaultRoom) {
+						const room = Meteor.user().defaultRoom.split('/');
+						FlowRouter.go(room[0], { name: room[1] }, FlowRouter.current().queryParams);
+					} else {
+						FlowRouter.go('home');
+					}
+				});
+				c.stop();
+			}
+		});
+	},
+});
 
 // FlowRouter.route('/login', {
 // 	name: 'login',
@@ -301,32 +301,32 @@ FlowRouter.route('/profile/:id', {
 // 	},
 // });
 
-// FlowRouter.route('/setup-wizard/:step?', {
-// 	name: 'setup-wizard',
-// 	action: async () => {
-// 		const { SetupWizardRoute } = await import('./components/setupWizard/SetupWizardRoute');
-// 		BlazeLayout.render(await createTemplateForComponent(SetupWizardRoute));
-// 	},
-// });
+FlowRouter.route('/setup-wizard/:step?', {
+	name: 'setup-wizard',
+	action: async () => {
+		const { SetupWizardRoute } = await import('./components/setupWizard/SetupWizardRoute');
+		BlazeLayout.render(await createTemplateForComponent(SetupWizardRoute));
+	},
+});
 
-// FlowRouter.route('/admin/:group?', {
-// 	name: 'admin',
-// 	action: async ({ group = 'info' } = {}) => {
-// 		switch (group) {
-// 			case 'info': {
-// 				const { InformationRoute } = await import('./components/admin/info/InformationRoute');
-// 				BlazeLayout.render('main', { center: await createTemplateForComponent(InformationRoute) });
-// 				break;
-// 			}
+FlowRouter.route('/admin/:group?', {
+	name: 'admin',
+	action: async ({ group = 'info' } = {}) => {
+		switch (group) {
+			case 'info': {
+				const { InformationRoute } = await import('./components/admin/info/InformationRoute');
+				BlazeLayout.render('main', { center: await createTemplateForComponent(InformationRoute) });
+				break;
+			}
 
-// 			default: {
-// 				const { SettingsRoute } = await import('./components/admin/settings/SettingsRoute');
-// 				BlazeLayout.render('main', { center: await createTemplateForComponent(SettingsRoute, { group }) });
-// 				// BlazeLayout.render('main', { center: 'admin' });
-// 			}
-// 		}
-// 	},
-// });
+			default: {
+				const { SettingsRoute } = await import('./components/admin/settings/SettingsRoute');
+				BlazeLayout.render('main', { center: await createTemplateForComponent(SettingsRoute, { group }) });
+				// BlazeLayout.render('main', { center: 'admin' });
+			}
+		}
+	},
+});
 
 // FlowRouter.notFound = {
 // 	action: async () => {

@@ -1,15 +1,24 @@
 <template name="room">
 	<div class="main-content-flex">
 		<section class="messages-container flex-tab-main-content {{adminClass}}" id="{{windowId}}" aria-label="{{_ "Channel"}}">
-			{{# unless embeddedVersion}}
-				{{# headerRoom}}
-					{{#with flexData}}
+			<!--{{# unless embeddedVersion}}-->
+			<!--	{{# headerRoom}}-->
+			<!--		{{#with flexData}}-->
+			<!--			<div class="rc-header__block rc-header__block-action">-->
+			<!--				{{> RoomsActionTab}}-->
+			<!--			</div>-->
+			<!--		{{/with}}-->
+			<!--	{{/headerRoom}}-->
+			<!--{{/unless}}-->
+				<header class="rc-header rc-header--room" >
+		<div class="rc-header__wrap">
+								{{#with flexData}}
 						<div class="rc-header__block rc-header__block-action">
 							{{> RoomsActionTab}}
 						</div>
 					{{/with}}
-				{{/headerRoom}}
-			{{/unless}}
+					</div>
+					</header>
 			<div class="messages-container-wrapper">
 				<div class="messages-container-main dropzone">
 					<div class="dropzone-overlay background-transparent-darkest color-content-background-color">{{_ "Drop_to_upload_file"}}</div>

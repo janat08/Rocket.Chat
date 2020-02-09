@@ -29,4 +29,10 @@
   </div>
 </nav>
     {{> Template.dynamic template=main}}
+    {{> sideNav }}
+    {{#each chats }}
+    <div style="width: 700px; height: 300px;" class=' main-content content-background-color'>
+          {{> room }}
+    </div>
+    {{/each}}
 </template>

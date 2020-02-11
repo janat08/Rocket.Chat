@@ -1,10 +1,13 @@
 import './body.html';
-
+import {openRoom} from '/app/ui-utils'
 
 Template.App_body.helpers({
     chats () {
-        console.log(Session.get('DMS'))
-        return Session.get('DMS').map(x=>({_id: x}))
+        const dms = Session.get('DMS')
+        if (!dms){
+            return []
+        }
+        return dms.map(x=>({_id: x}))
     },
     roomData() {
         return {

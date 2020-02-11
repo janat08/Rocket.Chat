@@ -9,6 +9,8 @@ import { Users, ChatSubscription } from '../../models';
 import { settings } from '../../settings';
 import { hasAtLeastOnePermission } from '../../authorization';
 import { timeAgo } from '../../lib/client/lib/formatDate';
+import { openRoom, RoomManager } from '/app/ui-utils'
+
 
 Template.sidebarItem.helpers({
 	streaming() {
@@ -49,7 +51,8 @@ Template.sidebarItem.helpers({
 
 		if (userMentions) {
 			badges.push('badge--user-mentions');
-		} else if (groupMentions) {
+		}
+		else if (groupMentions) {
 			badges.push('badge--group-mentions');
 		}
 
@@ -99,26 +102,46 @@ Template.sidebarItem.onCreated(function() {
 
 		if (currentData.t === 'd' && Meteor.userId() !== currentData.lastMessage.u._id) {
 			this.renderedMessage = currentData.lastMessage.msg === '' ? t('Sent_an_attachment') : renderedMessage;
-		} else {
+		}
+		else {
 			this.renderedMessage = currentData.lastMessage.msg === '' ? t('user_sent_an_attachment', { user: sender }) : `${ sender }: ${ renderedMessage }`;
 		}
 	});
 });
 
 Template.sidebarItem.events({
-	'click .sidebar-item__link'() {
+	'click .sidebar-item__link' () {
 		var dms = Session.get('DMS') || []
 		dms.push(this.rid)
-		const filt = dms.filter(x=>this.rid==x)
-		if (filt.length > 1){
-			dms = dms.filter(x=>this.rid!=x)
+		const filt = dms.filter(x => this.rid == x)
+		if (filt.length > 1) {
+			dms = dms.filter(x => this.rid != x)
 		}
 		Session.set('DMS', dms)
+		console.log('opening', this.fname)
+		openRoom('d', this.fname)
+		// Session.set('openedRoom', this.rid);
+		// RoomManager.openedRoom = this.rid;
+
+		// Session.set('editRoomTitle', false);
+		// // KonchatNotification.removeRoomNotification(params._id)
+		// // update user's room subscription
+		// const sub = ChatSubscription.findOne({ rid: this.rid });
+		// if (sub && sub.open === false) {
+		// 	Meteor.call('openRoom', this.rid, function(err) {
+		// 		if (err) {
+		// 			// return handleError(err);
+		// 		}
+		// 	});
+		// }
+
+		
+		
 	},
-	'click [data-id], click .sidebar-item__link'() {
+	'click [data-id], click .sidebar-item__link' () {
 		return menu.close();
 	},
-	'click .sidebar-item__menu'(e) {
+	'click .sidebar-item__menu' (e) {
 		e.stopPropagation(); // to not close the menu
 		e.preventDefault();
 
@@ -156,7 +179,8 @@ Template.sidebarItem.events({
 				type: 'sidebar-item',
 				id: 'read',
 			});
-		} else {
+		}
+		else {
 			items.push({
 				icon: 'flag',
 				name: t('Mark_unread'),
@@ -187,15 +211,11 @@ Template.sidebarItem.events({
 
 		const config = {
 			popoverClass: 'sidebar-item',
-			columns: [
-				{
-					groups: [
-						{
-							items,
-						},
-					],
-				},
-			],
+			columns: [{
+				groups: [{
+					items,
+				}, ],
+			}, ],
 			data: {
 				template: this.t,
 				rid: this.rid,

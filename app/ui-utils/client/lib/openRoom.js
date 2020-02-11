@@ -40,23 +40,28 @@ function replaceCenterDomBy(dom) {
 }
 
 export const openRoom = function(type, name) {
+	console.log(33333, type, name,)
 	window.currentTracker = Tracker.autorun(function(c) {
 		const user = Meteor.user();
+		console.log(1)
 		if ((user && user.username == null) || (user == null && settings.get('Accounts_AllowAnonymousRead') === false)) {
 			BlazeLayout.render('main');
 			return;
 		}
+		console.log(2)
 
 		if (RoomManager.open(type + name).ready() !== true) {
-			replaceCenterDomBy(getDomOfLoading());
-			return;
+			// replaceCenterDomBy(getDomOfLoading());
+			// return;
 		}
+				console.log(3)
+
 		if (window.currentTracker) {
 			window.currentTracker = undefined;
 		}
 		c.stop();
-
 		const room = roomTypes.findRoom(type, name, user);
+		console.log(33333, room)
 		if (room == null) {
 			if (type === 'd') {
 				Meteor.call('createDirectMessage', name, function(error) {

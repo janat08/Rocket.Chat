@@ -17,7 +17,7 @@ Template.App_body.helpers({
 })
 
 Template.App_body.onCreated(()=>{
-    Meteor.subscribe('users.all')
+    SubsCache.subscribe('users.all')
 })
 
 Template.App_body.onRendered(function() {

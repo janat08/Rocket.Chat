@@ -40,7 +40,6 @@ function replaceCenterDomBy(dom) {
 }
 
 export const openRoom = function(type, name) {
-	console.log(33333, type, name,)
 	window.currentTracker = Tracker.autorun(function(c) {
 		const user = Meteor.user();
 		console.log(1)
@@ -61,7 +60,7 @@ export const openRoom = function(type, name) {
 		}
 		c.stop();
 		const room = roomTypes.findRoom(type, name, user);
-		console.log(33333, room)
+		console.log(33333, typeof room)
 		if (room == null) {
 			if (type === 'd') {
 				Meteor.call('createDirectMessage', name, function(error) {
@@ -89,11 +88,11 @@ export const openRoom = function(type, name) {
 		const roomDom = RoomManager.getDomOfRoom(type + name, room._id);
 		const mainNode = replaceCenterDomBy(roomDom);
 
-		if (mainNode) {
-			if (roomDom.classList.contains('room-container')) {
-				roomDom.querySelector('.messages-box > .wrapper').scrollTop = roomDom.oldScrollTop;
-			}
-		}
+		// if (mainNode) {
+		// 	if (roomDom.classList.contains('room-container')) {
+		// 		roomDom.querySelector('.messages-box > .wrapper').scrollTop = roomDom.oldScrollTop;
+		// 	}
+		// }
 
 		Session.set('openedRoom', room._id);
 		RoomManager.openedRoom = room._id;

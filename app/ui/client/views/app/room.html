@@ -11,17 +11,17 @@
 			<!--	{{/headerRoom}}-->
 			<!--{{/unless}}-->
 				<header class="rc-header rc-header--room" >
-		<div class="rc-header__wrap">
-								{{#with flexData}}
+					<div class="rc-header__wrap">
+					{{#with flexData}}
 						<div class="rc-header__block rc-header__block-action">
 							{{> RoomsActionTab}}
 						</div>
 					{{/with}}
 					</div>
-					</header>
+				</header>
 			<div class="messages-container-wrapper">
 				<div class="messages-container-main dropzone">
-					<div class="dropzone-overlay background-transparent-darkest color-content-background-color">{{_ "Drop_to_upload_file"}}</div>
+					<!--<div class="dropzone-overlay background-transparent-darkest color-content-background-color">{{_ "Drop_to_upload_file"}}</div>-->
 					{{#unless embeddedVersion}}
 						{{#if announcement}}
 						<div class="fixed-title announcement {{getAnnouncementStyle}}" aria-label="{{RocketChatMarkdownInline announcement}}">

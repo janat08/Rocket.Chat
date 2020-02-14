@@ -98,7 +98,7 @@ const createTemplateForComponent = async (
 
 
 
-window.SubsCache = new SubsCache(5, 10);
+window.SubsCache = new SubsCache(10, 20);
 
 //Set up all routes in the app
 
@@ -185,32 +185,32 @@ FlowRouter.route('/', {
 	},
 });
 
-// FlowRouter.route('/login', {
-// 	name: 'login',
+FlowRouter.route('/login', {
+	name: 'login',
 
-// 	action() {
-// 		FlowRouter.go('home');
-// 	},
-// });
+	action() {
+		FlowRouter.go('home');
+	},
+});
 
-// FlowRouter.route('/home', {
-// 	name: 'home',
+FlowRouter.route('/home', {
+	name: 'home',
 
-// 	action(params, queryParams) {
-// 		KonchatNotification.getDesktopPermission();
-// 		if (queryParams.saml_idp_credentialToken !== undefined) {
-// 			Accounts.callLoginMethod({
-// 				methodArguments: [{
-// 					saml: true,
-// 					credentialToken: queryParams.saml_idp_credentialToken,
-// 				}],
-// 				userCallback() { BlazeLayout.render('main', { center: 'home' }); },
-// 			});
-// 		} else {
-// 			BlazeLayout.render('main', { center: 'home' });
-// 		}
-// 	},
-// });
+	action(params, queryParams) {
+		KonchatNotification.getDesktopPermission();
+		if (queryParams.saml_idp_credentialToken !== undefined) {
+			Accounts.callLoginMethod({
+				methodArguments: [{
+					saml: true,
+					credentialToken: queryParams.saml_idp_credentialToken,
+				}],
+				userCallback() { BlazeLayout.render('main', { center: 'home' }); },
+			});
+		} else {
+			BlazeLayout.render('main', { center: 'home' });
+		}
+	},
+});
 
 // FlowRouter.route('/directory', {
 // 	name: 'directory',

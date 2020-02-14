@@ -17,6 +17,7 @@ export class DirectMessageRoomRoute extends RoomTypeRouteConfig {
 	}
 
 	action(params) {
+				console.log('router openRoom')
 		return openRoom('d', params.username);
 	}
 
@@ -40,11 +41,12 @@ export class DirectMessageRoomType extends RoomTypeConfig {
 		if (!hasPermission('view-d-room')) {
 			return null;
 		}
-
+		// debugger
 		const query = {
 			t: 'd',
 			name: identifier,
 		};
+		console.log('router findRoom', identifier)
 
 		const subscription = Subscriptions.findOne(query);
 		if (subscription && subscription.rid) {

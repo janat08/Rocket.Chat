@@ -448,7 +448,7 @@ Template.room.helpers({
 				clearUserDetail: Template.instance().clearUserDetail,
 			},
 		};
-
+		console.log(flexData)
 		return flexData;
 	},
 
@@ -1056,7 +1056,7 @@ Template.room.onCreated(function() {
 
 	this.flexTemplate = new ReactiveVar();
 
-	this.userDetail = new ReactiveVar(FlowRouter.getParam('username'));
+	this.userDetail = new ReactiveVar(Meteor.user().username);
 	this.groupDetail = new ReactiveVar();
 
 	this.tabBar = new RocketChatTabBar();

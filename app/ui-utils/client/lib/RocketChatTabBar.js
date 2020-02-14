@@ -29,7 +29,7 @@ export class RocketChatTabBar {
 	}
 
 	showGroup(group) {
-		this.group.set(group);
+		this.group.set('direct');
 	}
 
 	extendsData(data) {

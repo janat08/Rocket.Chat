@@ -50,11 +50,12 @@ export const RoomManager = new function() {
 	const Dep = new Tracker.Dependency();
 	const Cls = class {
 		static initClass() {
+			console.log(3333333, 'initing class')
 			this.prototype.openedRooms = openedRooms;
 			this.prototype.onlineUsers = onlineUsers;
 			this.prototype.roomStream = roomStream;
 			this.prototype.computation = Tracker.autorun(() => {
-				const ready = CachedChatRoom.ready.get() && mainReady.get();
+				const ready = CachedChatRoom.ready.get() //&& mainReady.get();
 				if (ready !== true) { return; }
 				const user = Meteor.user();
 				Tracker.nonreactive(() => Object.entries(openedRooms).forEach(([typeName, record]) => {
@@ -64,7 +65,7 @@ export const RoomManager = new function() {
 					const name = typeName.substr(1);
 
 					const room = roomTypes.findRoom(type, name, user);
-
+					console.log('RM', typeof room)
 					if (room != null) {
 						record.rid = room._id;
 						RoomHistoryManager.getMoreIfIsEmpty(room._id);

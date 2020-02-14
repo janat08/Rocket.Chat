@@ -55,7 +55,7 @@ export const TabBar = new class TabBar {
 
 	getButtons() {
 		const buttons = _.toArray(this.buttons.get()).filter((button) => !button.condition || button.condition());
-
+		console.log('arrayed buttons', buttons.length)
 		return _.sortBy(buttons, 'order');
 	}
 

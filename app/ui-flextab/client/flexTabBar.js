@@ -21,6 +21,7 @@ const commonHelpers = {
 	},
 };
 function canShowAddUsersButton(rid) {
+	return false
 	const canAddToChannel = hasAllPermission(
 		'add-user-to-any-c-room', rid,
 	);
@@ -51,6 +52,7 @@ const filterButtons = (button, anonymous, rid) => {
 		return false;
 	}
 	if (button.groups.indexOf(Template.instance().tabBar.currentGroup()) === -1) {
+		console.log('broke')
 		return false;
 	}
 	if (button.id === 'addUsers' && !canShowAddUsersButton(rid)) {
@@ -67,6 +69,7 @@ Template.flexTabBar.helpers({
 	},
 	...commonHelpers,
 	buttons() {
+		console.log('buttons', TabBar.getButtons())
 		return TabBar.getButtons().filter((button) =>
 			filterButtons(button, this.anonymous, this.data && this.data.rid),
 		);
@@ -242,6 +245,8 @@ Template.RoomsActionTab.helpers({
 		}
 		const buttons = TabBar.getButtons()
 			.filter((button) => filterButtons(button, Template.instance().anonymous, Template.instance().data.rid));
+					console.log('buttons', buttons, buttons.length <= TabBar.size)
+
 		return buttons.length <= TabBar.size ? buttons : buttons.slice(0, TabBar.size);
 	},
 

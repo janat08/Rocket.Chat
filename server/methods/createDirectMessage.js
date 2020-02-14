@@ -12,6 +12,13 @@ import { addUser } from '../../app/federation/server/functions/addUser';
 Meteor.methods({
 	createDirectMessage(username) {
 		check(username, String);
+		if (username.length == 17){
+			const user = Meteor.users.findOne(username)
+			if (user){
+				username = user.username
+				console.log(username)
+			}
+		}
 
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('error-invalid-user', 'Invalid user', {

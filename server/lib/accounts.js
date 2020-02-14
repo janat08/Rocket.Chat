@@ -14,7 +14,7 @@ import { addUserRoles } from '../../app/authorization';
 import { getAvatarSuggestionForUser } from '../../app/lib/server/functions';
 
 const accountsConfig = {
-	forbidClientAccountCreation: true,
+	forbidClientAccountCreation: false,
 	loginExpirationInDays: settings.get('Accounts_LoginExpiration'),
 };
 

@@ -188,9 +188,9 @@ export const RoomManager = new function() {
 
 			openedRooms[typeName].lastSeen = new Date();
 
-			if (openedRooms[typeName].ready) {
-				this.closeOlderRooms();
-			}
+			// if (openedRooms[typeName].ready) {
+			// 	this.closeOlderRooms();
+			// }
 
 			if (CachedChatSubscription.ready.get() === true) {
 				if (openedRooms[typeName].active !== true) {

@@ -16,7 +16,7 @@ notes:
 room message box isn't in mobile mode
 change direct messages label (i18) in sidenav.html
 sidebar dissapears on 779px breakpoint
-for some reason the users collection is no longer working on client side
+for some reason the users collection is no longer working on client side- https://forums.meteor.com/t/collections-connection-is-null/51812
 if a lot of messages are in chat, then it will ignore fixed height, and begin overflowing
 consider using condensed view of direct chat list by default
 you must do /setup-wizard/ and then enable video conferencing and (sidebar nav in admin settings won't work) "always open in new tab" in admin settings under /admin/Video%2520Conference

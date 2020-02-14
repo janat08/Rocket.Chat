@@ -1,7 +1,7 @@
 todo:
-can't open 3rd party chats
 theres no overflow auto in chat
 upload file area doesn't work- deleted-, and styles break because the text messages expand container outside parent
+beginning a chat won't open the ui window since users collection isn't working (i had to skirt around the issue by rewriting server side to provide any functionality at all)
 
 notes:
 
